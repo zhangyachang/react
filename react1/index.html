@@ -9,67 +9,64 @@
 
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        .cc {
+            color: aqua;
+        }
+
+        .dd {
+            color: green;
+        }
+    </style>
 </head>
 
 <body>
     <div id="root">
         <div>内容覆盖</div>
     </div>
-    <script type="text/babel">
-
-        function Welcome(props) {
-            return (<div>
-                Hellow {props.name}
-            </div>)
+    <script type="text/babel" type="module">
+        function fn() {
+            console.log('代码执行生命周期中的内容....');
         }
 
-        class Name extends React.Component {
-            render(){
-                return <h1>Name组件 {this.props.name}</h1>
+
+        class Home extends React.Component {
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    status: false,
+                };
+                this.status = 0;
+            }
+
+            componentDidMount() {
+                console.log('组件被挂载');
+            }
+
+            componentWillUnMount() {
+                console.log('组件被卸载');
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h1>Home组件</h1>
+                        <div>{this.state.status}</div>
+                    </div >
+                )
             }
         }
 
-        function tick() {
-            ReactDOM.render(
-                <div>
-                    <div>这里的代码不更新吗</div>
-                    <h1>
-                        文本内容
-                        {new Date().toLocaleTimeString()}
-                    </h1>
-                    <Welcome name="这个名字" />
-                    <Welcome name="welcome2" />
-                    <Welcome name="welcome3" />
-                    <Name name="张三" />
-                </div>,
-                document.getElementById('root')
-            );
-        }
-
-        tick();
-        setInterval(tick, 1000);
-
-
-        // document.onclick = function(){
-        //     console.log('React', React);
-        // };
-
-
+        ReactDOM.render(
+            <div>
+                <Home name='张' isLoggedIn={false} />
+            </div>,
+            document.getElementById('root')
+        );
 
     </script>
-    <!--
-      Note: this page is a great way to try React but it's not suitable for production.
-      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
-
-      Read this section for a production-ready setup with JSX:
-      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
-
-      In a larger project, you can use an integrated toolchain that includes JSX instead:
-      https://reactjs.org/docs/create-a-new-react-app.html
-
-      You can also use React without JSX, in which case you can remove Babel:
-      https://reactjs.org/docs/react-without-jsx.html
-    -->
 </body>
 
 </html>
